@@ -17,7 +17,13 @@ git clone https://github.com/vladkunts/trivia-project.git
 cd trivia-project
 ```
 
-### 2. Install PHP dependencies via Docker
+### 2. Create `.env` file
+
+```bash
+cp .env.example .env
+```
+
+### 3. Install PHP dependencies via Docker
 
 ```bash
 docker run --rm \
@@ -28,19 +34,25 @@ docker run --rm \
     composer install --ignore-platform-reqs
 ```
 
-### 3. Start the application with Sail
+### 4. Start the application with Sail
 
 ```bash
 ./vendor/bin/sail up -d
 ```
 
-### 4. Generate the application key
+### 5. Generate the application key
 
 ```bash
 ./vendor/bin/sail artisan key:generate
 ```
 
-### 5. Install and build front-end assets
+### 6. Run migrations:
+
+```bash
+./vendor/bin/sail artisan migrate
+```
+
+### 7. Install and build front-end assets
 
 ```bash
 npm install
