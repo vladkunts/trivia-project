@@ -15,7 +15,7 @@ export default function ResultsPage() {
                 setAnswers(res.data.answers || []);
             })
             .catch(() => {
-                alert('Failed to load results.');
+                console.log('Failed to load results.');
                 navigate('/');
             })
             .finally(() => setLoading(false));

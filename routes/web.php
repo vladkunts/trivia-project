@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TriviaController;
 
 Route::get('/results/data', [TriviaController::class, 'results']);
+Route::get('/quiz/data', [TriviaController::class, 'results']);
 
 Route::get('/{any}', fn () => view('app'))->where('any', '.*');
 

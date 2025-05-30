@@ -12,17 +12,17 @@ export default function QuizPage() {
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const res = await axios.get('/results/data');
+                const res = await axios.get('/quiz/data');
 
                 if (!res.data.questions || res.data.questions.length === 0) {
-                    alert('No quiz data found. Please start again.');
+                    console.log('No quiz data found. Please start again.');
                     navigate('/');
                     return;
                 }
 
                 setQuestions(res.data.questions);
             } catch (error) {
-                alert('Something went wrong while loading quiz questions.');
+                console.log('Something went wrong while loading quiz questions.');
                 navigate('/');
             } finally {
                 setLoading(false);
@@ -59,7 +59,7 @@ export default function QuizPage() {
             <h2 className="mb-4">Question {currentIndex + 1} of {questions.length}</h2>
             <div className="card mb-4">
                 <div className="card-body">
-                    <h5 className="card-title" dangerouslySetInnerHTML={{ __html: currentQuestion.question }}></h5>
+                    <h5 className="card-title mb-3" dangerouslySetInnerHTML={{ __html: currentQuestion.question }}></h5>
                     <div className="list-group">
                         {currentQuestion.shuffled_answers?.map((answerHtml, index) => (
                             <button

@@ -1,45 +1,53 @@
 # Trivia Quiz App
 
-A Laravel + React-based trivia quiz application that fetches questions from the Open Trivia Database API.
+This is a simple Laravel-based application that allows users to take a trivia quiz by selecting question parameters and submitting answers.
 
----
+## Requirements
 
-## Quick Start
+- Docker and Docker Compose
+- Node.js >= 18.14.1
+- Composer
 
-### 1. Clone & install dependencies
+## Getting Started
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/vladkunts/trivia-project.git
 cd trivia-project
+```
 
-# Install PHP dependencies
+### 2. Install PHP dependencies via Docker
+
+```bash
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v $(pwd):/var/www/html \
+    -w /var/www/html \
+    laravelsail/php82-composer:latest \
+    composer install --ignore-platform-reqs
+```
+
+### 3. Start the application with Sail
+
+```bash
 ./vendor/bin/sail up -d
-./vendor/bin/sail composer install
+```
 
-# Copy environment and generate app key
-cp .env.example .env
+### 4. Generate the application key
+
+```bash
 ./vendor/bin/sail artisan key:generate
 ```
 
-### 2. Install frontend dependencies (Node.js 18+)
+### 5. Install and build front-end assets
 
 ```bash
 npm install
-```
-
-### 3. Run frontend and backend
-
-```bash
-# In one terminal (frontend)
 npm run dev
-
-# In another terminal (backend)
-./vendor/bin/sail up
 ```
 
-> The app should now be accessible at [http://localhost](http://localhost)
-
----
+Visit the app at: [http://localhost](http://localhost)
 
 ## Running Tests
 
@@ -47,37 +55,7 @@ npm run dev
 ./vendor/bin/sail artisan test
 ```
 
----
-
-## Tech Stack
-
-- Laravel 12
-- React 19 + React Router
-- Bootstrap 5
-- Vite (with JSX support)
-- Laravel Sail (Docker)
-
----
-
-## Project Structure
-
-```
-├── app/
-├── resources/
-│   ├── views/app.blade.php     # Main entry point
-│   └── js/                     # React codebase
-│       ├── main.jsx
-│       ├── AppRouter.jsx
-│       └── pages/
-├── routes/web.php
-└── tests/
-```
-
----
-
 ## Notes
 
-- Make sure Docker is running before using Sail.
-- If you encounter `vite manifest not found`, ensure `npm run dev` is running.
-- All quiz data is stored in the session, nothing is persisted beyond search history.
-
+- The `/results` page requires an active session. If the quiz hasn't been completed, a redirect to the home page will occur.
+- The app uses Vite for front-end assets and Laravel Sail for a Dockerized environment.

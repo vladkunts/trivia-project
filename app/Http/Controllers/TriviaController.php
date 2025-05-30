@@ -86,9 +86,20 @@ class TriviaController extends Controller
 
     public function results(): JsonResponse
     {
+        $questions = session('questions');
+        $answers = session('answers');
+
+        $isResultsDataRequest = request()->is('results/data');
+
+        $shouldRedirect = !$questions || ($isResultsDataRequest && !$answers);
+
+        if ($shouldRedirect) {
+            return response()->json(['redirect' => true], 302);
+        }
+
         return response()->json([
-            'questions' => session('questions', []),
-            'answers' => session('answers', []),
+            'questions' => $questions,
+            'answers' => $answers,
         ]);
     }
 }
